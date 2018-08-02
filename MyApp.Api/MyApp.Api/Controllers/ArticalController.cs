@@ -1,4 +1,6 @@
-﻿using System;
+﻿using MyApp.Data;
+using MyApp.Service.Artical;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -8,13 +10,19 @@ namespace MyApp.Api.Controllers
 {
     public class ArticalController: ApiController
     {
+        private readonly ArticalService _articalService;
 
-        //[System.Web.Http.ActionName("getArticalList")]
-        //[System.Web.Http.AllowAnonymous]
-        //public async Task<WebApiResult<Guid>> PostLogin([FromBody]LoginModel model)
-        //{
-        //    return await _membershipService.Login(model.Username, model.Password, model.Remember);
-        //}
+        public ArticalController() {
+            _articalService = new ArticalService();
+        }
+        [System.Web.Http.ActionName("getArticalList")]
 
+        [HttpGet]
+        public List<MyApp_Book> getArticalList( )
+        {
+            
+             
+            return _articalService.getArticalList();
+        }
     }
 }

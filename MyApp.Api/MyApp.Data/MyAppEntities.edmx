@@ -1,0 +1,186 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="MyAppModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="MemberShip">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="255" />
+          <Property Name="LoginName" Type="varchar" MaxLength="255" />
+          <Property Name="PassWord" Type="varchar" MaxLength="255" />
+          <Property Name="Authority" Type="int" />
+        </EntityType>
+        <!--生成过程中发现错误:
+警告 6013: 表/视图“MyApp.dbo.MyApp_Article”未定义主键，并且无法推断有效的主键。已排除了此表/视图。若要使用实体，将需要检查您的架构、添加正确的键并取消对实体的注释。
+        <EntityType Name="MyApp_Article">
+          <Property Name="Id" Type="uniqueidentifier" />
+          <Property Name="AritcleName" Type="varchar" MaxLength="255" />
+          <Property Name="AritcleAuthorId" Type="uniqueidentifier" />
+          <Property Name="WriteTime" Type="datetime" />
+          <Property Name="Text" Type="nvarchar(max)" />
+          <Property Name="Deleted" Type="bit" />
+          <Property Name="DeletedAt" Type="datetime" />
+          <Property Name="DeletedById" Type="int" />
+          <Property Name="Type" Type="int" />
+          <Property Name="ChildType" Type="int" />
+        </EntityType>-->
+        <!--生成过程中发现错误:
+警告 6002: 表/视图“MyApp.dbo.MyApp_Book”未定义主键。已推断出该键，并将定义创建为只读的表/视图。-->
+        <EntityType Name="MyApp_Book">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="BookName" Type="varchar" MaxLength="255" />
+          <Property Name="Author" Type="varchar" MaxLength="255" />
+          <Property Name="DataId" Type="uniqueidentifier" />
+          <Property Name="DeletedAt" Type="datetime" />
+          <Property Name="DeletedById" Type="uniqueidentifier" />
+        </EntityType>
+        <!--生成过程中发现错误:
+警告 6002: 表/视图“MyApp.dbo.MyApp_LookLog”未定义主键。已推断出该键，并将定义创建为只读的表/视图。-->
+        <EntityType Name="MyApp_LookLog">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="MemberShipId" Type="uniqueidentifier" />
+          <Property Name="ArticleId" Type="uniqueidentifier" />
+          <Property Name="IsLike" Type="bit" />
+          <Property Name="IsComment" Type="bit" />
+          <Property Name="CommentText" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityContainer Name="MyAppModelStoreContainer">
+          <EntitySet Name="MemberShip" EntityType="Self.MemberShip" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MyApp_Book" EntityType="Self.MyApp_Book" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [MyApp_Book].[Id] AS [Id], 
+    [MyApp_Book].[BookName] AS [BookName], 
+    [MyApp_Book].[Author] AS [Author], 
+    [MyApp_Book].[DataId] AS [DataId], 
+    [MyApp_Book].[DeletedAt] AS [DeletedAt], 
+    [MyApp_Book].[DeletedById] AS [DeletedById]
+    FROM [dbo].[MyApp_Book] AS [MyApp_Book]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="MyApp_LookLog" EntityType="Self.MyApp_LookLog" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [MyApp_LookLog].[Id] AS [Id], 
+    [MyApp_LookLog].[MemberShipId] AS [MemberShipId], 
+    [MyApp_LookLog].[ArticleId] AS [ArticleId], 
+    [MyApp_LookLog].[IsLike] AS [IsLike], 
+    [MyApp_LookLog].[IsComment] AS [IsComment], 
+    [MyApp_LookLog].[CommentText] AS [CommentText]
+    FROM [dbo].[MyApp_LookLog] AS [MyApp_LookLog]</DefiningQuery>
+          </EntitySet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="MyAppModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="MemberShip">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="LoginName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="PassWord" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Authority" Type="Int32" />
+        </EntityType>
+        <EntityType Name="MyApp_Book">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="BookName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Author" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="DataId" Type="Guid" />
+          <Property Name="DeletedAt" Type="DateTime" Precision="3" />
+          <Property Name="DeletedById" Type="Guid" />
+        </EntityType>
+        <EntityType Name="MyApp_LookLog">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="MemberShipId" Type="Guid" />
+          <Property Name="ArticleId" Type="Guid" />
+          <Property Name="IsLike" Type="Boolean" />
+          <Property Name="IsComment" Type="Boolean" />
+          <Property Name="CommentText" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityContainer Name="MyAppEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="MemberShip" EntityType="Self.MemberShip" />
+          <EntitySet Name="MyApp_Book" EntityType="Self.MyApp_Book" />
+          <EntitySet Name="MyApp_LookLog" EntityType="Self.MyApp_LookLog" />
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="MyAppModelStoreContainer" CdmEntityContainer="MyAppEntities">
+          <EntitySetMapping Name="MemberShip">
+            <EntityTypeMapping TypeName="MyAppModel.MemberShip">
+              <MappingFragment StoreEntitySet="MemberShip">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="LoginName" ColumnName="LoginName" />
+                <ScalarProperty Name="PassWord" ColumnName="PassWord" />
+                <ScalarProperty Name="Authority" ColumnName="Authority" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MyApp_Book">
+            <EntityTypeMapping TypeName="MyAppModel.MyApp_Book">
+              <MappingFragment StoreEntitySet="MyApp_Book">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="BookName" ColumnName="BookName" />
+                <ScalarProperty Name="Author" ColumnName="Author" />
+                <ScalarProperty Name="DataId" ColumnName="DataId" />
+                <ScalarProperty Name="DeletedAt" ColumnName="DeletedAt" />
+                <ScalarProperty Name="DeletedById" ColumnName="DeletedById" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MyApp_LookLog">
+            <EntityTypeMapping TypeName="MyAppModel.MyApp_LookLog">
+              <MappingFragment StoreEntitySet="MyApp_LookLog">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="MemberShipId" ColumnName="MemberShipId" />
+                <ScalarProperty Name="ArticleId" ColumnName="ArticleId" />
+                <ScalarProperty Name="IsLike" ColumnName="IsLike" />
+                <ScalarProperty Name="IsComment" ColumnName="IsComment" />
+                <ScalarProperty Name="CommentText" ColumnName="CommentText" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="无" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
