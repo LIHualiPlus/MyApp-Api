@@ -15,13 +15,13 @@ namespace MyApp.Api.Controllers
 
         public ArticalController() {
             _articalService = new ArticalService();
+
         }
         [System.Web.Http.ActionName("getArticalList")]
         [HttpGet]
         public List<MyApp_Article> getArticalList( )
         {
-            
-             
+
             return _articalService.getArticalList();
         }
         [System.Web.Http.ActionName("addArtical")]
