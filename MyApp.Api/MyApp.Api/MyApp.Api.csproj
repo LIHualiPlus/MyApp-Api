@@ -228,7 +228,9 @@
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -262,7 +264,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\MyApp.Data\MyApp.Data.csproj">
-      <Project>{997924a9-b6c8-4b4d-aeed-778b3ada5bb9}</Project>
+      <Project>{894c824e-c88c-4628-af6d-b66ca01bce2c}</Project>
       <Name>MyApp.Data</Name>
     </ProjectReference>
     <ProjectReference Include="..\MyApp.Service\MyApp.Service.csproj">

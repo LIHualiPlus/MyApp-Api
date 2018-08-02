@@ -4,7 +4,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{997924A9-B6C8-4B4D-AEED-778B3ADA5BB9}</ProjectGuid>
+    <ProjectGuid>{894C824E-C88C-4628-AF6D-B66CA01BCE2C}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>MyApp.Data</RootNamespace>
@@ -67,6 +67,9 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>MyAppEntities.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="MyApp_Article.cs">
+      <DependentUpon>MyAppEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="MyApp_Book.cs">
       <DependentUpon>MyAppEntities.tt</DependentUpon>

@@ -26,6 +26,7 @@ namespace MyApp.Data
         }
     
         public virtual DbSet<MemberShip> MemberShip { get; set; }
+        public virtual DbSet<MyApp_Article> MyApp_Article { get; set; }
         public virtual DbSet<MyApp_Book> MyApp_Book { get; set; }
         public virtual DbSet<MyApp_LookLog> MyApp_LookLog { get; set; }
     }

@@ -52,14 +52,14 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\MyApp.Data\MyApp.Data.csproj">
-      <Project>{997924a9-b6c8-4b4d-aeed-778b3ada5bb9}</Project>
-      <Name>MyApp.Data</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\MyApp.Data\MyApp.Data.csproj">
+      <Project>{894c824e-c88c-4628-af6d-b66ca01bce2c}</Project>
+      <Name>MyApp.Data</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

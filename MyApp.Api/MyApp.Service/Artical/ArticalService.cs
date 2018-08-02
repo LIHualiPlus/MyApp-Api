@@ -33,14 +33,13 @@ namespace MyApp.Service.Artical
             var result = new MyAppApiResult<bool>();
             try
             {
-               using (var db = new MyAppEntities()) {
-                    
+                var db = new MyAppEntities();
                     article.Id = Guid.NewGuid();
                     article.WriteTime = DateTime.Now;
                     article.AritcleAuthorId = Guid.NewGuid();
                     db.MyApp_Article.Add(article);
                     db.SaveChanges();
-                }
+               
             }
             catch(Exception e){
                 result.AddError(e.Message);
