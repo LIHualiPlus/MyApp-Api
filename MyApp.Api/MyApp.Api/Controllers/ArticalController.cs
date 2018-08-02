@@ -1,4 +1,5 @@
 ﻿using MyApp.Data;
+using MyApp.Service;
 using MyApp.Service.Artical;
 using System;
 using System.Collections.Generic;
@@ -16,13 +17,17 @@ namespace MyApp.Api.Controllers
             _articalService = new ArticalService();
         }
         [System.Web.Http.ActionName("getArticalList")]
-
         [HttpGet]
-        public List<MyApp_Book> getArticalList( )
+        public List<MyApp_Article> getArticalList( )
         {
             
              
             return _articalService.getArticalList();
+        }
+        [System.Web.Http.ActionName("addArtical")]
+        [HttpPost]
+        public MyAppApiResult<bool> addArtical(MyApp_Article article) {
+            return _articalService.AddArticle(article);
         }
     }
 }

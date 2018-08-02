@@ -2,20 +2,23 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 namespace MyApp.Service.Artical
 {
     public class ArticalService
     {
-        public  List<MyApp_Book> getArticalList()
+       
+         
+       
+        public  List<MyApp_Article> getArticalList()
         {
-            var result = new List<MyApp_Book>();
+             
+            var result = new List<MyApp_Article>();
             try
             {
-                var db = new MyAppEntities();
-                result = db.MyApp_Book.ToList();
+                using (var db = new MyAppEntities()) {
+                result = db.MyApp_Article.ToList();
+
+                }
                 
             }
             catch (Exception e)
@@ -23,6 +26,27 @@ namespace MyApp.Service.Artical
                
             }
             return result;
+        }
+
+
+        public MyAppApiResult<bool> AddArticle(MyApp_Article article) {
+            var result = new MyAppApiResult<bool>();
+            try
+            {
+               using (var db = new MyAppEntities()) {
+                    
+                    article.Id = Guid.NewGuid();
+                    article.WriteTime = DateTime.Now;
+                    article.AritcleAuthorId = Guid.NewGuid();
+                    db.MyApp_Article.Add(article);
+                    db.SaveChanges();
+                }
+            }
+            catch(Exception e){
+                result.AddError(e.Message);
+            }
+            return result;
+
         }
 
     }
