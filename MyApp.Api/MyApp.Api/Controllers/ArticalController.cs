@@ -26,7 +26,9 @@ namespace MyApp.Api.Controllers
         }
         [System.Web.Http.ActionName("addArtical")]
         [HttpPost]
+        [AllowAnonymous]
         public MyAppApiResult<bool> addArtical(MyApp_Article article) {
+             
             return _articalService.AddArticle(article);
         }
     }
