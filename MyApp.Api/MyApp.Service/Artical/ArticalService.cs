@@ -16,7 +16,7 @@ namespace MyApp.Service.Artical
             try
             {
                 using (var db = new MyAppEntities()) {
-                result = db.MyApp_Article.ToList();
+                result = db.MyApp_Article.OrderByDescending(o=>o.WriteTime).ToList();
 
                 }
                 
