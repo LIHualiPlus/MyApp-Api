@@ -24,6 +24,14 @@ namespace MyApp.Api.Controllers
 
             return _articalService.getArticalList();
         }
+        [System.Web.Http.ActionName("GetArticalListByType")]
+        [HttpGet]
+        public List<MyApp_Article> getArticalListByType(int type)
+        {
+
+            return _articalService.getArticalListByType(type);
+        }
+
         [System.Web.Http.ActionName("addArtical")]
         [HttpPost]
         [AllowAnonymous]

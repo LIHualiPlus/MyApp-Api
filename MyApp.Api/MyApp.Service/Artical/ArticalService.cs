@@ -28,6 +28,26 @@ namespace MyApp.Service.Artical
             return result;
         }
 
+        public List<MyApp_Article> getArticalListByType(int type)
+        {
+
+            var result = new List<MyApp_Article>();
+            try
+            {
+                using (var db = new MyAppEntities())
+                {
+                    result = db.MyApp_Article.Where(o=>o.Type==type).OrderByDescending(o => o.WriteTime).ToList();
+
+                }
+
+            }
+            catch (Exception e)
+            {
+
+            }
+            return result;
+        }
+
 
         public MyAppApiResult<bool> AddArticle(MyApp_Article article) {
             var result = new MyAppApiResult<bool>();
