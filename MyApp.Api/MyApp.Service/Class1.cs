@@ -11,12 +11,14 @@ namespace MyApp.Service
         public MyAppApiResult() {
             this.HasErroes = false;
             this.Success = true;
+            this.Messages = new List<string>();
             this.AllMessages = "";
         }
         public MyAppApiResult(MyAppApiResult<T> source) {
             this.HasErroes = false;
             this.Success = true;
             this.AllMessages = "";
+            this.Messages = new List<string>();
             this.Data = source.Data;
         }
 

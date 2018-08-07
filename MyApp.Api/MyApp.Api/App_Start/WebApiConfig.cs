@@ -21,7 +21,8 @@ namespace MyApp.Api
             {
                 
                  {"Artical", new[] {""}},
-                 {"Resource", new[] {""}}
+                 {"Resource", new[] {""}},
+                 {"Member", new[] {""}}
             };
             foreach (var group in routes)
             {
