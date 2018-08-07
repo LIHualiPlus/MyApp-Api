@@ -1,4 +1,5 @@
-﻿using MyApp.Data;
+﻿using MyApp.Api.filter;
+using MyApp.Data;
 using MyApp.Service;
 using MyApp.Service.Artical;
 using System;
@@ -6,10 +7,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Http;
+using System.Web.Http.Controllers;
 
 namespace MyApp.Api.Controllers
 {
-    public class ArticalController: ApiController
+    [AuthorizeFilter]
+    public class ArticalController: BaseApiController
     {
         private readonly ArticalService _articalService;
 
@@ -19,9 +22,9 @@ namespace MyApp.Api.Controllers
         }
         [System.Web.Http.ActionName("getArticalList")]
         [HttpGet]
-        public List<MyApp_Article> getArticalList( )
+        public List<MyApp_Article> getArticalList()
         {
-
+            var a = CurrentUser;
             return _articalService.getArticalList();
         }
         [System.Web.Http.ActionName("GetArticalListByType")]

@@ -12,6 +12,7 @@ namespace MyApp.Service.Artical
         public  List<MyApp_Article> getArticalList()
         {
             
+            
             var result = new List<MyApp_Article>();
             try
             {
