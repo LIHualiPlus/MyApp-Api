@@ -2,6 +2,7 @@
 using MyApp.Data;
 using MyApp.Service;
 using MyApp.Service.Artical;
+using MyApp.Service.models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,17 +23,24 @@ namespace MyApp.Api.Controllers
         }
         [System.Web.Http.ActionName("getArticalList")]
         [HttpGet]
-        public List<MyApp_Article> getArticalList()
+        public List<ArticalListModel> getArticalList()
         {
-            var a = CurrentUser;
             return _articalService.getArticalList();
         }
         [System.Web.Http.ActionName("GetArticalListByType")]
         [HttpGet]
-        public List<MyApp_Article> getArticalListByType(int type)
+        public List<ArticalListModel> getArticalListByType(int type)
         {
 
             return _articalService.getArticalListByType(type);
+        }
+
+        [System.Web.Http.ActionName("GetArticalById")]
+        [HttpGet]
+        public MyAppApiResult<MyApp_Article> GetArticalById(Guid Id)
+        {
+
+            return _articalService.GetArticalById(Id,CurrentUser);
         }
 
         [System.Web.Http.ActionName("addArtical")]

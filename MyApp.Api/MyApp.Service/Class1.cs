@@ -30,6 +30,8 @@ namespace MyApp.Service
         public virtual List<string> Messages { get; set; }
 
         public virtual void AddError(string error) {
+            Success = false;
+            HasErroes = true;
             this.Messages.Add(error);
             this.AllMessages = this.AllMessages + error;
         }

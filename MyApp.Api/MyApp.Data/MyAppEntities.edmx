@@ -29,6 +29,7 @@
           <Property Name="DeletedById" Type="int" />
           <Property Name="Type" Type="int" />
           <Property Name="ChildType" Type="int" />
+          <Property Name="SimpleText" Type="varchar" MaxLength="255" />
         </EntityType>
         <EntityType Name="MyApp_Book">
           <Key>
@@ -92,6 +93,7 @@
           <Property Name="DeletedById" Type="Int32" />
           <Property Name="Type" Type="Int32" />
           <Property Name="ChildType" Type="Int32" />
+          <Property Name="SimpleText" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="MyApp_Book">
           <Key>
@@ -135,6 +137,7 @@
           <EntitySetMapping Name="MyApp_Article">
             <EntityTypeMapping TypeName="MyAppModel.MyApp_Article">
               <MappingFragment StoreEntitySet="MyApp_Article">
+                <ScalarProperty Name="SimpleText" ColumnName="SimpleText" />
                 <ScalarProperty Name="ChildType" ColumnName="ChildType" />
                 <ScalarProperty Name="Type" ColumnName="Type" />
                 <ScalarProperty Name="DeletedById" ColumnName="DeletedById" />

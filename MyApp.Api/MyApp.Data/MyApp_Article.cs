@@ -24,5 +24,6 @@ namespace MyApp.Data
         public Nullable<int> DeletedById { get; set; }
         public Nullable<int> Type { get; set; }
         public Nullable<int> ChildType { get; set; }
+        public string SimpleText { get; set; }
     }
 }
