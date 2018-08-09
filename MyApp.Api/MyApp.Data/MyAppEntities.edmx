@@ -53,11 +53,42 @@
           <Property Name="IsComment" Type="bit" />
           <Property Name="CommentText" Type="nvarchar(max)" />
         </EntityType>
+        <!--生成过程中发现错误:
+警告 6002: 表/视图“MyApp.dbo.v_ArticleList”未定义主键。已推断出该键，并将定义创建为只读的表/视图。-->
+        <EntityType Name="v_ArticleList">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="AritcleName" Type="varchar" MaxLength="255" />
+          <Property Name="AritcleAuthorId" Type="uniqueidentifier" />
+          <Property Name="WriteTime" Type="datetime" />
+          <Property Name="Type" Type="int" />
+          <Property Name="ChildType" Type="int" />
+          <Property Name="SimpleText" Type="varchar" MaxLength="255" />
+          <Property Name="LookNum" Type="int" />
+          <Property Name="LikeNum" Type="int" />
+          <Property Name="CommentNum" Type="int" />
+        </EntityType>
         <EntityContainer Name="MyAppModelStoreContainer">
           <EntitySet Name="MemberShip" EntityType="Self.MemberShip" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MyApp_Article" EntityType="Self.MyApp_Article" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MyApp_Book" EntityType="Self.MyApp_Book" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MyApp_LookLog" EntityType="Self.MyApp_LookLog" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="v_ArticleList" EntityType="Self.v_ArticleList" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [v_ArticleList].[Id] AS [Id], 
+    [v_ArticleList].[AritcleName] AS [AritcleName], 
+    [v_ArticleList].[AritcleAuthorId] AS [AritcleAuthorId], 
+    [v_ArticleList].[WriteTime] AS [WriteTime], 
+    [v_ArticleList].[Type] AS [Type], 
+    [v_ArticleList].[ChildType] AS [ChildType], 
+    [v_ArticleList].[SimpleText] AS [SimpleText], 
+    [v_ArticleList].[LookNum] AS [LookNum], 
+    [v_ArticleList].[LikeNum] AS [LikeNum], 
+    [v_ArticleList].[CommentNum] AS [CommentNum]
+    FROM [dbo].[v_ArticleList] AS [v_ArticleList]</DefiningQuery>
+          </EntitySet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
@@ -68,6 +99,7 @@
           <EntitySet Name="MyApp_Article" EntityType="MyAppModel.MyApp_Article" />
           <EntitySet Name="MyApp_Book" EntityType="MyAppModel.MyApp_Book" />
           <EntitySet Name="MyApp_LookLog" EntityType="MyAppModel.MyApp_LookLog" />
+          <EntitySet Name="v_ArticleList" EntityType="MyAppModel.v_ArticleList" />
         </EntityContainer>
         <EntityType Name="MemberShip">
           <Key>
@@ -116,6 +148,21 @@
           <Property Name="IsLike" Type="Boolean" />
           <Property Name="IsComment" Type="Boolean" />
           <Property Name="CommentText" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="v_ArticleList">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="AritcleName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="AritcleAuthorId" Type="Guid" />
+          <Property Name="WriteTime" Type="DateTime" Precision="3" />
+          <Property Name="Type" Type="Int32" />
+          <Property Name="ChildType" Type="Int32" />
+          <Property Name="SimpleText" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="LookNum" Type="Int32" />
+          <Property Name="LikeNum" Type="Int32" />
+          <Property Name="CommentNum" Type="Int32" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -171,6 +218,22 @@
                 <ScalarProperty Name="IsLike" ColumnName="IsLike" />
                 <ScalarProperty Name="ArticleId" ColumnName="ArticleId" />
                 <ScalarProperty Name="MemberShipId" ColumnName="MemberShipId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="v_ArticleList">
+            <EntityTypeMapping TypeName="MyAppModel.v_ArticleList">
+              <MappingFragment StoreEntitySet="v_ArticleList">
+                <ScalarProperty Name="CommentNum" ColumnName="CommentNum" />
+                <ScalarProperty Name="LikeNum" ColumnName="LikeNum" />
+                <ScalarProperty Name="LookNum" ColumnName="LookNum" />
+                <ScalarProperty Name="SimpleText" ColumnName="SimpleText" />
+                <ScalarProperty Name="ChildType" ColumnName="ChildType" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="WriteTime" ColumnName="WriteTime" />
+                <ScalarProperty Name="AritcleAuthorId" ColumnName="AritcleAuthorId" />
+                <ScalarProperty Name="AritcleName" ColumnName="AritcleName" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>

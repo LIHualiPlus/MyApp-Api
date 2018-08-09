@@ -78,6 +78,9 @@
       <DependentUpon>MyAppEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="v_ArticleList.cs">
+      <DependentUpon>MyAppEntities.tt</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <EntityDeploy Include="MyAppEntities.edmx">

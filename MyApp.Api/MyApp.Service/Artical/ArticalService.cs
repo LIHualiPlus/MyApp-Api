@@ -14,23 +14,15 @@ namespace MyApp.Service.Artical
             _lookLogService = new LookLogService();
         }
 
-        public List<ArticalListModel> getArticalList()
+        public List<v_ArticleList> getArticalList()
         {
 
 
-            var result = new List<ArticalListModel>();
+            var result = new List<v_ArticleList>();
             try
             {
                 using (var db = new MyAppEntities()) {
-                    result = db.MyApp_Article.OrderByDescending(o => o.WriteTime).Select(o=>new ArticalListModel() {
-                        Id= o.Id,
-                        AritcleName =o.AritcleName,
-                        AritcleAuthorId = o.AritcleAuthorId,
-                        WriteTime= o.WriteTime,
-                        Type=o.Type,
-                        ChildType=o.ChildType,
-                        SimpleText=o.SimpleText
-                    } ).ToList();
+                    result = db.v_ArticleList.OrderByDescending(o => o.WriteTime).ToList();
 
                 }
 
@@ -42,23 +34,15 @@ namespace MyApp.Service.Artical
             return result;
         }
 
-        public List<ArticalListModel> getArticalListByType(int type)
+        public List<v_ArticleList> getArticalListByType(int type)
         {
 
-            var result = new List<ArticalListModel>();
+            var result = new List<v_ArticleList>();
             try
             {
                 using (var db = new MyAppEntities())
                 {
-                    result = db.MyApp_Article.Where(o => o.Type == type).OrderByDescending(o => o.WriteTime).Select(o=>new ArticalListModel() {
-                        Id = o.Id,
-                        AritcleName = o.AritcleName,
-                        AritcleAuthorId = o.AritcleAuthorId,
-                        WriteTime = o.WriteTime,
-                        Type = o.Type,
-                        ChildType = o.ChildType,
-                        SimpleText = o.SimpleText
-                    }).ToList();
+                    result = db.v_ArticleList.Where(o => o.Type == type).OrderByDescending(o => o.WriteTime).ToList();
 
                 }
 
@@ -78,13 +62,14 @@ namespace MyApp.Service.Artical
                 using (var db = new MyAppEntities())
                 {
                     result.Data = db.MyApp_Article.FirstOrDefault(o => o.Id == Id);
-
+                    if (!db.MyApp_LookLog.Any(o => o.MemberShipId == CurrentUser.Id&&o.ArticleId==Id)) {
                     db.MyApp_LookLog.Add(new MyApp_LookLog()
                     {
                         Id = Guid.NewGuid(),
                         MemberShipId = CurrentUser.Id,
                         ArticleId=Id
                     });
+                    }
                     db.SaveChanges();
                 }
 
@@ -122,10 +107,46 @@ namespace MyApp.Service.Artical
 
         }
 
+        public MyAppApiResult<bool> AddLike(Guid ArticleId,MemberShip User)
+        {
+            var result = new MyAppApiResult<bool>();
+            try
+            {
+                using (var db = new MyAppEntities()) {
+                    var log = db.MyApp_LookLog.FirstOrDefault(o => o.MemberShipId == User.Id&&o.ArticleId==ArticleId);
+                    if (log != null)
+                    {
+                        if (log.IsLike == true) {
+                            result.AddError("已喜欢过");
+                            return result;
+                        }
+                        log.IsLike = true;
+                    }
+                    else {
+                        db.MyApp_LookLog.Add(new MyApp_LookLog()
+                        {
+                            Id = Guid.NewGuid(),
+                            MemberShipId = User.Id,
+                            ArticleId = ArticleId,
+                            IsLike = true
+                        });
+                    }
+                    
+                    db.SaveChanges();
+                }
+            }
+            catch (Exception e)
+            {
+                result.AddError(e.Message);
+            }
+            return result;
+
+        }
 
 
 
-         
+
+
 
     }
 }

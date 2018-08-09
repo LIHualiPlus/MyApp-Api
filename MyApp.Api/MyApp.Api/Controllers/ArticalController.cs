@@ -23,13 +23,13 @@ namespace MyApp.Api.Controllers
         }
         [System.Web.Http.ActionName("getArticalList")]
         [HttpGet]
-        public List<ArticalListModel> getArticalList()
+        public List<v_ArticleList> getArticalList()
         {
             return _articalService.getArticalList();
         }
         [System.Web.Http.ActionName("GetArticalListByType")]
         [HttpGet]
-        public List<ArticalListModel> getArticalListByType(int type)
+        public List<v_ArticleList> getArticalListByType(int type)
         {
 
             return _articalService.getArticalListByType(type);
@@ -49,6 +49,16 @@ namespace MyApp.Api.Controllers
         public MyAppApiResult<bool> addArtical(MyApp_Article article) {
              
             return _articalService.AddArticle(article);
+        }
+
+
+        [System.Web.Http.ActionName("AddLike")]
+        [HttpGet]
+        [AllowAnonymous]
+        public MyAppApiResult<bool> AddLike( Guid ArticleId)
+        {
+
+            return _articalService.AddLike(ArticleId , CurrentUser);
         }
     }
 }
