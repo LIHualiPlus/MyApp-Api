@@ -16,20 +16,23 @@ namespace MyApp.Service.Artical
 
         public List<v_ArticleList> getArticalList()
         {
-
+              PagingOptions a = new PagingOptions();
+                    a.PageIndex = 1;
+                    a.PageSize = 5;
 
             var result = new List<v_ArticleList>();
             try
             {
                 using (var db = new MyAppEntities()) {
-                    result = db.v_ArticleList.OrderByDescending(o => o.WriteTime).ToList();
 
-                }
+                   var aa = db.v_ArticleList.OrderByDescending(o => o.WriteTime).AsQueryable();
+                    result = aa.AsPaging(a).ToList();
+                };
 
             }
             catch (Exception e)
             {
-
+                 
             }
             return result;
         }

@@ -39,5 +39,23 @@ namespace MyApp.Service
         //public virtual MyAppApiResult<TDestination> MapTo<TDestination>();
     }
 
-    
+    public static class PagingExtensions
+    {
+        public static IQueryable<T> AsPaging<T>(this IQueryable<T> helper, PagingOptions options) {
+            helper = helper.Skip((options.PageIndex - 1) * options.PageSize).Take(options.PageSize);
+
+
+        return helper;
+        }
+    }
+
+
+    public class PagingOptions
+    {
+
+        public int PageIndex { get; set; }
+        public int PageSize { get; set; }
+    }
+
+
 }

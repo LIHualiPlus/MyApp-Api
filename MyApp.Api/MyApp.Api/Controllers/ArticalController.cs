@@ -25,7 +25,7 @@ namespace MyApp.Api.Controllers
         [HttpGet]
         public List<v_ArticleList> getArticalList()
         {
-            return _articalService.getArticalList();
+            return _articalService.getArticalList() ;
         }
         [System.Web.Http.ActionName("GetArticalListByType")]
         [HttpGet]
